@@ -2,12 +2,25 @@ name: Angular CI
 
 on:
   push:
+<<<<<<< HEAD
     branches: [main]
   pull_request:
     branches: [main]
 
 jobs:
   build:
+=======
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+>>>>>>> e7faae5 (Agregar workflow de GitHub Actions)
     runs-on: ubuntu-latest
 
     strategy:
@@ -15,14 +28,23 @@ jobs:
         node-version: [20, 22]
 
     steps:
+<<<<<<< HEAD
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
+=======
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+>>>>>>> e7faae5 (Agregar workflow de GitHub Actions)
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
+<<<<<<< HEAD
       - name: Install dependencies
         run: npm install
 
@@ -36,3 +58,13 @@ jobs:
 
       - name: Build project
         run: npm run build
+=======
+      - name: Install
+        run: npm install
+
+      - name: Test
+        run: npm test -- --watch=false
+
+      - name: Build
+        run: npm run build
+>>>>>>> e7faae5 (Agregar workflow de GitHub Actions)
