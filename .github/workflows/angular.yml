@@ -29,8 +29,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - id: setup-chrome
+        name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+
       - name: Run tests
-        run: npm test -- --watch=false
+        env:
+          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
+        run: npm test -- --watch=false --browsers=ChromeHeadless
 
       - name: Build project
         run: npm run build
