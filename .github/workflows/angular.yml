@@ -2,12 +2,9 @@ name: Angular CI
 
 on:
   push:
-    branches:
-      - main
-
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build:
@@ -18,10 +15,10 @@ jobs:
         node-version: [20, 22]
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
@@ -29,14 +26,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - id: setup-chrome
-        name: Install Chrome
+      - name: Install Google Chrome
         uses: browser-actions/setup-chrome@v1
 
-      - name: Run tests
+      - name: Run unit tests
         env:
-          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
-        run: npm test -- --watch=false --browsers=ChromeHeadless
+          CHROME_BIN: chrome
+        run: npm test
 
       - name: Build project
         run: npm run build
